@@ -1,27 +1,27 @@
+language: generic
 
-language: generic 
-sudo: required
 services:
-   - docker 
+  - docker
 
 before_install:
-   - docker build -t navnathd/react-test -f ./client/Dockerfile.dev ./client 
-  
-script:
-   - docker run -e CI=true navnathd/react-test npm test
+  - docker build -t navnathd/react-test -f ./client/Dockerfile.dev ./client
 
- after_success:
-   - docker build -t navnathd/multi-client ./client 
-   - docker build -t navnathd/multi-nginx ./nginx
-   - docker build -t navnathd/multi-server ./server
-   - docker build -t navnathd/multi-worker ./worker 
-   #Login to Docker hub - take ID and pwd and gives this as input to next command 
-   -echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
-   #take this images and push it to docker hub
-   - docker push navnathd/multi-client
-   - docker push navnathd/multi-nginx 
-   - docker push navnathd/multi-server
-   - docker push navnathd/multi-worker
+script:
+  - docker run -e CI=true navnathd/react-test npm test
+
+after_success:
+  - docker build -t navnathd/multi-client ./client
+  - docker build -t navnathd/multi-nginx ./nginx
+  - docker build -t navnathd/multi-server ./server
+  - docker build -t navnathd/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push navnathd/multi-client
+  - docker push navnathd/multi-nginx
+  - docker push navnathd/multi-server
+  - docker push navnathd/multi-worker
+
 
 
 
