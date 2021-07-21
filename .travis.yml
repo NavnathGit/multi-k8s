@@ -10,17 +10,17 @@ script:
   - docker run -e CI=true navnathd/react-test npm test
 
 after_success:
-  - docker build -t navnathd/multi-client ./client
-  - docker build -t navnathd/multi-nginx ./nginx
-  - docker build -t navnathd/multi-server ./server
-  - docker build -t navnathd/multi-worker ./worker
+  - docker build -t navanthd/multi-client ./client
+  - docker build -t navanthd/multi-nginx ./nginx
+  - docker build -t navanthd/multi-server ./server
+  - docker build -t navanthd/multi-worker ./worker
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-  - docker push navnathd/multi-client
-  - docker push navnathd/multi-nginx
-  - docker push navnathd/multi-server
-  - docker push navnathd/multi-worker
+  - docker push navanthd/multi-client
+  - docker push navanthd/multi-nginx
+  - docker push navanthd/multi-server
+  - docker push navanthd/multi-worker
 
 
 
